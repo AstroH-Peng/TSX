@@ -1,5 +1,5 @@
-#[directories]
-input_dir = "/home/birdy/Software/TSX/host-trajectories/"
+#[directories] (in relative paths only)
+input_dir = "./host-trajectories/"
 
 
 #[default]
