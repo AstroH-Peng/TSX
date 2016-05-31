@@ -14,7 +14,7 @@ class Position:
     -x: defines the x position 
     -y: defines the y position
     -z: defines the z position
-    -position_vector: represents the (x, y, z) vector
+    -pos_vec: represents the (x, y, z) vector
     -latitude: defines the latitude position
     -longitude: defines the longitude position
     -latitude_longitude: represents the couple (latitude, longitude)
@@ -25,12 +25,12 @@ class Position:
     -latitude_longitude(): returns the couple (latitude, longitude).
 
     """
-    def __init__(self):
+    def __init__(self, x = 0.0, y = 0.0, z = 0.0):
         """Constructor of the class Position."""
-        self.x = []
-        self.y = []
-        self.z = [] 
-	self.position_vector = []
+        self.x = x
+        self.y = y
+        self.z = z 
+	self.pos_vec = []
 	self.latitude = []
 	self.longitude = []
 	self.latitude_longitude = []
@@ -43,9 +43,9 @@ class Position:
 	self.x, self.y, self.z, self.latitude, self.longitude, self.radius)
     def xyz(self):
         """Function returning the (x, y, z) vector of a body."""
-	self.position_vector.append([self.x, self.y, self.z])
-	self.position_vector = np.array(self.position_vector) 
-	return self.position_vector
+	self.pos_vec.append([self.x, self.y, self.z])
+	self.pos_vec = np.array(self.pos_vec) 
+	return self.pos_vec
     def latitude_longitude(self):
 	"""Function returning the couple (latitude, longitude)."""
 	self.latitude_longitude.append([self.latitude, self.longitude])

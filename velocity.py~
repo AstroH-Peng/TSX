@@ -4,6 +4,9 @@
 #Nima
 #
 
+import numpy as np
+import scipy as sp
+
 class Velocity:
     """Class defining the velocity of a body.
 
@@ -16,12 +19,12 @@ class Velocity:
     -vxvyvz(): returns the (vx, vy, vz) vector.
 
     """
-    def __init__(self):
+    def __init__(self, vx = 0.0, vy = 0.0, vz = 0.0):
 	"""Constructor of the class Velocity."""
-	self.vx = []
-	self.vy = []
-	self.vz = []
-	self.velocity_vector = []
+	self.vx = vx
+	self.vy = vy
+	self.vz = vz
+	self.vel_vec = []
     def __repr__(self):
 	"""Method displaying a customized message when an instance of the class Velocity is 
 	called in the command line.
@@ -29,6 +32,6 @@ class Velocity:
 	return "Velocity: vx({}), vx({}), vx({})".format(self.vx, self.vy, self.vz)
     def vxvyvz(self):
 	"""Function returning the (vx, vy, vz) vector of a body."""
-	self.velocity_vector.append([self.vx, self.vy, self.vz])
-	self.velocity_vector = np.array(self.velocity_vector)
-	return self.velocity_vector
+	self.vel_vec.append([self.vx, self.vy, self.vz])
+	self.vel_vec = np.array(self.vel_vec)
+	return self.vel_vec

@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+#N
+
+import numpy as np
+import scipy as sp
+
+import PyKEP as pk
+
+class Srp():
+    """Class defining the perturbations due to the Solar Radiation Pressure.
+
+    Attributes defined here:
+    -sc_mass: the mass of the spacecraft
+    -sc_area: the area of the spacecraft
+
+    Methods defined here:
+    -acc_tensor(): provides the acceleration due to the Solar Radiation Pressure.
+    
+    """
+    def __init__(self):
+	"""Constructor of the class Srp."""
+	self._sc_area = 0.0
+    def _get_sc_area(self):
+	"""Method called when trying to read the attribute 'sc_area'."""
+	return self._sc_area
+    def _set_sc_area(self, new_sc_area):
+	"""Method called when trying to modify the attribute 'sc_area'."""
+	self._sc_area = new_sc_area
+
+    sc_area = property(_get_sc_area, _set_sc_area)
+
+    def acc_tensor(self, radius):
+	"""Provides the acceleration due to the Solar Radiation Pressure.
+	Returns a matrix tensor 3*3.
+	"""
+	pass
