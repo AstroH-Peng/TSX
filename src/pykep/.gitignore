@@ -1,0 +1,7 @@
+build/
+CMakeLists.txt.user
+*~
+*.pyc
+doc/sphinx/_build
+CMakeCache.txt
+CMakeFiles/

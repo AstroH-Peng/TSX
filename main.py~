@@ -10,25 +10,46 @@ import scipy as sp
 import PyKEP as pk
 
 import config
-import motion
-import gravitational
-import trajectory_parser
+import instances
+#import motion
+#import gravitational
+#import non_gravitational
+#import tensor_constructor
+#import trajectory_parser
+from src.traj_builder import builder
+#import propagator
+from src import ref_traj
+from src import ref_eph
 
 if __name__ == '__main__':
-    host_traj = trajectory_parser.TrajParser()
+    #host_traj = trajectory_parser.TrajParser()
+    #bd = builder.Builder()
+    #ref = ref_traj.TrajOutput()
+    #eph = ref_eph.EphOutput()
   
-    with open(config.input_dir + config.host_trajectory_file) as input_file:
-        t, p, v = host_traj.parse_traj(input_file)
+    #with open(config.input_dir + config.host_trajectory_file) as input_file:
+        #t, p, v = host_traj.parse_traj(input_file)
+    
+    #print "t: ", t
 
-    earth = gravitational.KnownBody("earth")
-    acc = earth.sph_acc(t, p)
-    print acc
+    #earth = gravitational.SphericalBody("earth")
+    #acc = earth.get_acceleration(t, p)
+    #print acc
 
-    input_file = "da"
-    didymos_a = gravitational.UnKnownBody('didymos_a', 35.351, input_file)
-    u_t = 2458550.0
-    r, v = didymos_a.eph(u_t)
-    print "r: ", r
-    print "v: ", v
+    #didymain = gravitational.UnKnownBody("didymain")
+    #u_t = 2458450.0
+    #r = didymain.eph(u_t)
+    #print "r: ", r
+    #print "v: ", v
 
-
+    #tc = tensor_constructor.AccelConstructor()
+    #f_acc = tc.get_sum_acceleration(t, p)
+    #print "f_acc: ", f_acc
+ 
+    trj = instances.builder.compute_traj()
+    print ("Succes for computing traj !")
+    print "traj: ", trj[1:4]
+    instances.ref_traj.export_traj(trj)
+    print ("Success for creating the trajectory")
+    instances.ref_eph.export_eph(trj)
+    print ("Success for creating ephemerides") 

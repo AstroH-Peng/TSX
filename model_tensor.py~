@@ -10,36 +10,33 @@ import scipy as sp
 import PyKEP as pk
 
 class BaseModel:
-    """Class defining models of relative position and accelerations.
+    """Class defining the acceleration's format for numerical integration.
 
     Attributed defined here:
-    -name: the name of the body
-    -mu: the gravitational parameter of the body
+    -name: the name of the object.
 
     Method defined here:
-    -accel_instensity(): gives the acceleration intensity of the body
-    -accel_tensor(): provides the acceleration of the body as tensor.
-    -relative_position(): defines position of the spacecraft with respect 
-	to a body.
-    -sph_acc(): provides the potential acceleration of a given body as a 
-	perfect sphere.
+    -vec_to_tensor(): provides the acceleration of a given object as tensor.
 
     """
     def __init__(self, name):
 	"""Constructor of the class BaseModel."""
-	self.name = name
-	#self.mu = mu
+	self._name = name
+    def _get_name(self):
+	"""Method called when trying to read the attribute 'name'."""
+	return self._name
+    def _set_name(self, new_name):
+	"""Method called when trying to modify the attribute 'name'."""
+	self._name = new_name
+
+    name = property(_get_name, _set_name)
+
     def __repr__(self):
 	"""Method displaying a customized message when an instance of the 
 	class BaseModel is called in the command line.
 	"""
 	return "BaseModel: name = '{}'".format(self.name)
-    def accel_intensity(self, date, satellite_position):
-	"""Computes the acceleration intensity undergone by spacecraft."""
-	rp = self.relative_position(date, satellite_position)
-	acc_intens = self.mu_self / (rp**2)
-	return acc_intens
-    def accel_tensor(self, acc):
+    def vec_to_tensor(self, acc):
 	"""Transforms a given acceleration vector into a matrix tensor 3*3.
 	"""
 	a11 = float (acc[0])
@@ -50,18 +47,3 @@ class BaseModel:
 				  [0, a22, 0],
 				  [0, 0, a33]])
 	return matrix_tensor
-    def relative_position(self, date, satellite_position):
-	"""Gives the relative position of the spacecraft with respect to 
-	a body. Returns a vector position.
-	"""
-	body_position, _ = np.array(self.eph(date))
-	r_p = satellite_position - body_position
-	return r_p
-    def sph_acc(self, date, satellite_position):
-	"""Method computing the potential acceleration of a given body as
-	a perfect sphere. It returns a tensor 3*3.
-	"""
-	rel_pos = self.relative_position(date, satellite_position)
-	acc = -self.mu * rel_pos / (np.linalg.norm(rel_pos)**3)
-	acc_to_tensor = self.accel_tensor(acc)
-	return acc_to_tensor

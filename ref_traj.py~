@@ -1,38 +1,42 @@
-#!/usr/bin/env python
+#!usr/bin/env python
 # -*- coding: utf-8 -*-
-#N
+#Modified date: 16/06/2016
+#Nima 
+#
 
+import time  as tm 
 import numpy as np
 import scipy as sp
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import pyplot
 
 import PyKEP as pk
 
-class Output:
-    """Class exportating the Reference Trajectory.
+import config
+import motion
+
+class TrajOutput:
+    """Class exporting the Spacecraft trajectory to a file in vts format
 
     """
-    #def __init__():
-	#"""Constructor of class Output."""
-	#pass
-    def export_traj(self, output_file, trajectory, body):
-	"""Exporting the trajectory of the spacecraft by specified file."""
-	def tab_write(value):
-    		output_file.write('%s\t' % value)
+    def __init__(self):
+        """Constructor of the class TrajOutput."""
+        self.file = config.output_dir + config.output_trajectory_file
+        self.vts_headers = config.traj_vts_headers
+    def tab_write(self, *args):
+        """Method writting to file."""
+        for val in args:
+            self.file.write('%s\t' % val)
+    def export_traj(self, trajectory):
+        """Exporting the trajectory of the spacecraft to specified file."""
+        dt = motion.Date()
+        with open(self.file, 'w') as self.file: 
+        self.file.writelines(self.vts_headers)
+            for values in trajectory:
+                time = values[0]
+                mjd_integer_part, mjd_decimal_part = dt.mjd_vts(time)
+                self.tab_write(mjd_integer_part, mjd_decimal_part, \
+                values[1]/1000., values[2]/1000., values[3]/1000., \
+                values[4], values[5], values[6], \
+                np.linalg.norm(values[1:4])/1000.)
+                self.file.write('\n')
 
-	for value in trajectory:
-        	time = value[0]
-        	pos = value[1:4]
-       		tab_write(pk.epoch(time).mjd)
-        	tab_write(pos[0]/1000.)  # the position of the CubeSat along the X axis (in km)
-        	tab_write(pos[1]/1000.)
-        	tab_write(pos[2]/1000.)
-        	tab_write(value[4])      # the velocity of the CubeSat along the X axis (in m/s)
-        	tab_write(value[5])
-        	tab_write(value[6])
-        	tab_write(np.linalg.norm(pos)/1000.)  # the radii of the CubeSat from the Sun (in km)
-        	tab_write(np.linalg.norm(body.relative_position(pos, time))/1000.)  # the radii of the CubeSat from the Earth (in km)
-        	tab_write(np.linalg.norm(body.eph(time))/1000.) 			 # the radii of Earth from the Sun (in km)       
-        	output_file.write('\n')
 
