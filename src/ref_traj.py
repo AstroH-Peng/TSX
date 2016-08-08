@@ -5,6 +5,7 @@
 #
 
 import datetime as dtm 
+import time  as tm
 import numpy as np
 import scipy as sp
 
@@ -29,7 +30,8 @@ class TrajOutput:
     def export_traj(self, trajectory):
         """Exporting the trajectory of the spacecraft to specified file."""
         dt = motion.Date()
-        with open(self.output_dir + "ref_traj_%s.xyzv" % dtm.datetime.now(), 'w') as self.file:  
+        with open(self.output_dir + "ref_traj_%s" % dtm.date.today() \
+             + "_%s.xyzv" % tm.strftime("%H%M%S"), 'w') as self.file:  
             self.file.writelines(self.vts_headers)
             for values in trajectory:
                 time = values[0]

@@ -1,7 +1,7 @@
 #!usr/bin/env python
 # -*- coding: utf-8 -*-
 #Modified date: 17/05/2016
-#Method first write by Jim
+#Method first wrote by Jim
 #Nima 
 
 
@@ -45,4 +45,4 @@ class TrajParser:
             v.vy = values[5]
             v.vz = values[6]
 	
-        return d.date, p.xyz_array() * 1000, v.vxvyvz_array()
+        return d.date, p.xyz_array() * 1000, v.vxvyvz_array() * 1000

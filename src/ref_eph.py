@@ -5,6 +5,7 @@
 #
 
 import datetime as dtm
+import time  as tm
 import numpy as np
 import scipy as sp
 
@@ -36,7 +37,8 @@ class EphOutput:
         ps = motion.Position()
         for body in self.foreground_objects:
             bd = bodies.PyKEPBody(body)
-            with open(self.output_dir + "%s_" % body + "eph_%s.traj" % dtm.datetime.now(), 'w') as self.file:
+            with open(self.output_dir + "%s_" % body + "%s" % dtm.date.today() \
+                 + "_%s.eph" % tm.strftime("%H%M%S"), 'w') as self.file: 
                 self.file.writelines(self.vts_headers)
                 if (self.vts_headers or self.vts_headers_next) != []:
                     self.file.write("TARGET_NAME  = %s\n" % body.upper())

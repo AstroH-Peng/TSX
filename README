@@ -1,4 +1,100 @@
-# TSX
-#TS version 1.1
-Trajectory Solver in deep space
-Modified by Nima Traore (c) 2016
+TSX : Trajectory Solver version 1.1
+
+========
+Authors:
+Nima Traore (c) 2016
+Contribution by Boris Segret
+Origin of some methods by Jim Lin
+Special thanks: Emmanuel Grolleau & LeeRoy Malac-Allain 
+=======================================================
+
+Trajectory Solver is an interplanetary trajectory propagator for nanosatellites.
+The Software uses scientific library PyKEP which provides basic tools to perform 
+research in interplanetary trajectory design. 
+
+Trajectory Solver was implemented under Python 2.7.6 with Ubuntu distribution on
+Linux. Users using upgrade Python versions (3++) need following python libraries
+to run the program: - setuptools3, scipy and numpy. And install PykEP library in
+the path.
+
+Users have at their disposal the configuration file "config.py" to customize the
+propagator parameters. The configuration file is the only file users may use for
+the set up, the creation or the declaration of any global variable. Those varia-
+bles are recovered by the module "instances.py" to pass parameters into the ins-
+tances of different classes. After the configuration file's set up, user can run
+the Software.
+
+=====================
+Executing the program
+=====================
+
+To execute the program, users open a terminal (a linux environnement) and change
+the directory into the TSX folder:
+
+--> $ cd --PATH--/TSX
+
+Then execute the main program "trajectory_solver.py":
+
+--> $ python trajectory_solver.py
+
+If users use an upgrade version version of python, then:
+
+--> python--version-- trajectory_solver.py
+
+Example: python3 trajectory_solver.py
+
+When the program is runed, users can recover the output reference trajectory and
+the output reference ephemerides files in the desired path chose in "config.py".
+  
+==================
+Configuration file
+==================
+
+As said above the configuration file is the only interface that users can set up
+variables and choose input and/or ouptut directories of files. The default input
+and ouput are in the same directory as the "config.py". But users can change the
+input / output directory by providing the desired directory path. 
+
+The host trajectory file in the input should have at least a line, including the
+spacecraft coordinate's values separated by spaces. These values are describe as 
+following: epoch (in Julian Day), position vector x, y, z in (km/s) and velocity
+vector vx, vy, vz in (km/s). If the input file contains more than a line, so the 
+last line is the one taken into account to propagate the trajectory. Additionaly
+the input file should not contain any string (but only float values). 
+
+The reference trajectories or the reference ephemerides output files headers are
+given in the vts format and can be customized as well; all the outputs files are
+labeled as follow:
+--> Reference trajectories : "ref_traj_YYYY-MM-DD_HHMMSS.xyzv"
+--> Reference ephemerides  : "body name_YYYY-MM-DD_HHMMSS.eph"
+
+If users do not want to put vts headers in outfiles, so this must be done in the
+"config.py" by declaring the appropriate variables as an empty list.
+
+=============
+To Developper
+=============
+
+Following modules are not implemented; so an other programmer can implement them
+in the future as necessary. Modules are located in the "src" folder and the com-
+ponent diagram in the technical note show their location.
+
+------------------------
+
+-- "aspr.py":            acceleration due to a given body asperical spahe.   
+
+-- "drag.py":            acceleration due to aerodynamic drag 
+
+-- "delta_v.py":         initial delta to start the propagation and so on
+
+-- "magnetic.py":        acceleration due to magnetic field 
+
+-- "plasma.py":          acceleration due to plasma
+
+-- "sampler.py":         time step sampling if classical Runge-Kutta is used
+
+-- "data_accuracy":      a package to perform data accuracy
+
+------------------------
+
+

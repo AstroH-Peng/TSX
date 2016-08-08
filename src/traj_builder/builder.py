@@ -50,7 +50,7 @@ class Builder:
 
         with open(self.input_trajectory_file) as input_file:
             t, p, v = host_traj.parse_traj(input_file)
-
+        #if delta_v integrate
         a = np.array([0.0, 0.0, 0.0]) 
         pos_vel = np.append(p, v)
         pos_vel_acc = np.append(pos_vel, a) 

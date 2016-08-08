@@ -65,7 +65,7 @@ propagator_type = "rk4_module"
 # step_number (no unit), time_step (in day), time_step_min (in day),
 # time_step_max (in day), tolerance (no unit) 
 # and 0.8 <= safty_factor <= 0.9
-propagator_attributes = {"step_number":50,
+propagator_attributes = {"step_number":60,
                          "time_step":1./4,
                          "time_step_min":0.25 / 64,
                          "time_step_max":0.25 * 64,
